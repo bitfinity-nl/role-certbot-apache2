@@ -8,7 +8,7 @@
 #   Request letsencrypt certificate for Apache2.
 
 
-#-- Certbot --
+#-- Default settings: role-certbot-apache2 --
 #
 # Variable(s):
 #   certbot_servername   : 'example.com'             # Set the domain.
