@@ -1,4 +1,4 @@
-Role Name
+role-certbot-apache2
 =========
 
 This role automates the request of a Letsencrypt SSL Certificate for an Apache2 server.
