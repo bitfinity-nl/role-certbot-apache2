@@ -34,8 +34,11 @@ For adding additional domain controller use the example below
       become: yes
 
       vars:
-        # -- Custom settings: role-samba4 --
-        smb_role : 'additional'
+        #-- Custom settings: role-certbot-apache2 --
+        certbot_servername   : 'example.com'
+        certbot_serveralias  : 'test.example.com'
+        certbot_serveradmin  : 'support@example.com'
+        certbot_documentroot : '/var/www/html'
         
       roles:
         - role-samba4
