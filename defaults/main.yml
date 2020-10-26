@@ -7,8 +7,19 @@
 # Description:
 #   Request letsencrypt certificate for Apache2.
 
+
 #-- Certbot --
-certbot_servername   : 'bitfinity.nl'
-certbot_serveralias  : 'test.bitfinity.nl'
-certbot_serveradmin  : 'support@bitfinity.nl'
+#
+# Variable(s):
+#   certbot_servername   : 'example.com'             # Set the domain.
+#   certbot_serveralias  : 'test.example.com'        # Set the subdomain which you want to request the certificate. 
+#   certbot_serveradmin  : 'support@example.com'     # Set the contact email.
+#   certbot_documentroot : '/var/www/html'           # Set the path to the document root.
+# 
+# Comment:
+#   Please change the settings below or in your playbook.
+#
+certbot_servername   : 'example.com'
+certbot_serveralias  : 'test.example.com'
+certbot_serveradmin  : 'support@example.com'
 certbot_documentroot : '/var/www/html'
