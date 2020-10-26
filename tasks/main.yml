@@ -51,3 +51,12 @@
 - name: "Display if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
   debug:
     msg: "{{ result.stat.exists }}"
+
+- name: "Request letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+  raw: certbot --agree-tos --apache -n -d {{ certbot_serveralias }} --apache -m {{ certbot_serveradmin }}
+  when: result.stat.exists == false
+
+- name: "Renew Letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+  raw: "certbot renew"
+  notify: reload_apache2
+  when: result.stat.exists == true
