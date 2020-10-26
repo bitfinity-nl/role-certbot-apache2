@@ -1,0 +1,53 @@
+---
+# Title: role-certbot-apache2
+#
+# Author: Bitfinity-NL / L. Rutten
+# File: tasks/main.yml
+#
+# Description:
+#   Request letsencrypt certificate for Apache2.
+
+- name: "Install APT packages"
+  apt:
+    pkg:
+    - apache2
+    - certbot
+    - python3-certbot-apache
+
+- name: "Configure UFW for Apache2"
+  ufw:
+    rule: allow
+    name: Apache Full
+
+- name: "Configure Apache2 000-default.conf"
+  blockinfile:
+    backup: yes
+    path: /etc/apache2/sites-available/000-default.conf
+    marker: "        #<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertafter: "#ServerName www.example.com"
+    block: |2
+              ServerName {{ certbot_servername }}
+              ServerAlias {{ certbot_serveralias }}
+
+- name: "Configure Apache2 "
+  replace:
+    path: /etc/apache2/sites-available/000-default.conf
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.replace }}'
+  with_items:
+    - { regexp: 'ServerAdmin webmaster@localhost', replace: 'ServerAdmin {{ certbot_serveradmin }}' }
+    - { regexp: 'DocumentRoot /var/www/html', replace: 'DocumentRoot {{ certbot_documentroot }}' }
+
+- name: "Reload Apache2 "
+  systemd:
+    state: reloaded
+    name: apache2
+
+- name: "Check if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+  stat:
+    path: "/etc/letsencrypt/live/{{ certbot_serveralias }}"
+  register: result
+
+- name: "Display if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+  debug:
+    msg: "{{ result.stat.exists }}"
