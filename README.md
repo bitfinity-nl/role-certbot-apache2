@@ -41,7 +41,7 @@ For adding additional domain controller use the example below
         certbot_documentroot : '/var/www/html'
         
       roles:
-        - role-samba4
+        - role-certbot-apache2
 
 License
 -------
