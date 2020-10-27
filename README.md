@@ -51,6 +51,6 @@ GPLv3
 Author Information
 ------------------
 
-I: https://www.bitfinity.nl
+I: https://www.bitfinity.nl\
 E: info@bitfinity.nl
 
